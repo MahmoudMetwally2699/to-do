@@ -5,8 +5,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
+import { Provider } from 'react-redux';
 import { useColorScheme } from '@/components/useColorScheme';
+import store from '../store/store'; // Adjust the path if necessary
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,10 +51,11 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <Provider store={store}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </Provider>
     </ThemeProvider>
   );
 }
